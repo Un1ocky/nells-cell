@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistência Técnica Delivery</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #000000;
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Delivery Hero Section */
+        .delivery-hero {
+            margin-bottom: 60px;
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        .delivery-content {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: slideInScale 0.8s ease backwards;
+        }
+
+        .delivery-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ffffff, #888888, #ffffff);
+            animation: shimmer 3s linear infinite;
+        }
+
+        .delivery-content::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .delivery-icon {
+            width: 80px;
+            height: 80px;
+            background: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.2);
+            animation: bounce 2s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        .delivery-icon i {
+            width: 40px;
+            height: 40px;
+            stroke: #000000;
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+
+        .delivery-title {
+            color: #ffffff;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.6s ease 0.3s backwards;
+        }
+
+        .delivery-description {
+            color: #a3a3a3;
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.6s ease 0.4s backwards;
+        }
+
+        .delivery-features {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            max-width: 400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .delivery-feature {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.4s ease;
+            animation: slideInLeft 0.6s ease backwards;
+        }
+
+        .delivery-feature:nth-child(1) { animation-delay: 0.2s; }
+        .delivery-feature:nth-child(2) { animation-delay: 0.4s; }
+        .delivery-feature:nth-child(3) { animation-delay: 0.6s; }
+
+        .delivery-feature:hover {
+            transform: translateX(10px);
+        }
+
+        .delivery-feature-icon {
+            width: 40px;
+            height: 40px;
+            background: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.4s ease;
+        }
+
+        .delivery-feature:hover .delivery-feature-icon {
+            transform: rotate(10deg) scale(1.1);
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .delivery-feature-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: #000000;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* Services Section */
+        .services-section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+            letter-spacing: -0.5px;
+            animation: fadeInDown 0.6s ease;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ffffff, transparent);
+            animation: expandWidth 1s ease 0.6s backwards;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            background: linear-gradient(180deg, #0a0a0a 0%, #050505 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 32px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .service-card:nth-child(3) { animation-delay: 0.3s; }
+        .service-card:nth-child(4) { animation-delay: 0.4s; }
+        .service-card:nth-child(5) { animation-delay: 0.5s; }
+        .service-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 25px 70px rgba(255, 255, 255, 0.15);
+        }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            background: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+        }
+
+        .service-icon::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 18px;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+        }
+
+        .service-card:hover .service-icon {
+            background: #f5f5f5;
+            border-color: #000000;
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+        }
+
+        .service-card:hover .service-icon::after {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .service-icon i {
+            width: 28px;
+            height: 28px;
+            stroke: #000000;
+        }
+
+        .service-title {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.3px;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-title {
+            color: #ffffff;
+            transform: translateX(5px);
+        }
+
+        .service-description {
+            color: #a3a3a3;
+            font-size: 14px;
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-description {
+            color: #d4d4d4;
+        }
+
+        /* WhatsApp Section */
+        .whatsapp-section {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInUp 0.6s ease 0.3s backwards;
+        }
+
+        .whatsapp-title {
+            color: #ffffff;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .whatsapp-subtitle {
+            color: #737373;
+            font-size: 16px;
+            margin-bottom: 32px;
+            animation: fadeInUp 0.6s ease 0.2s backwards;
+        }
+
+        .whatsapp-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #25D366;
+            color: #000000;
+            border: none;
+            border-radius: 16px;
+            padding: 20px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 40px rgba(37, 211, 102, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .whatsapp-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .whatsapp-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .whatsapp-button:hover {
+            background: #20ba56;
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(37, 211, 102, 0.6);
+        }
+
+        .whatsapp-button i {
+            width: 24px;
+            height: 24px;
+            stroke: #000000;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .whatsapp-button:hover i {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .whatsapp-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Info Section */
+        .info-section {
+            background: linear-gradient(180deg, #0a0a0a 0%, #050505 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            animation: fadeInUp 0.6s ease 0.4s backwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffffff, transparent);
+            animation: slideRight 3s ease-in-out infinite;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.5s ease backwards;
+        }
+
+        .info-item:nth-child(1) { animation-delay: 0.5s; }
+        .info-item:nth-child(2) { animation-delay: 0.6s; }
+        .info-item:nth-child(3) { animation-delay: 0.7s; }
+        .info-item:nth-child(4) { animation-delay: 0.8s; }
+
+        .info-item:hover {
+            transform: translateX(8px);
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.4s ease;
+        }
+
+        .info-item:hover .info-icon {
+            transform: rotate(-10deg) scale(1.1);
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .info-icon i {
+            width: 20px;
+            height: 20px;
+            stroke: #000000;
+        }
+
+        .info-content h3 {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .info-content p {
+            color: #a3a3a3;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes iconPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes expandWidth {
+            from {
+                width: 0;
+            }
+            to {
+                width: 60px;
+            }
+        }
+
+        @keyframes slideRight {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 15px;
+            }
+
+            .delivery-content {
+                padding: 40px 25px;
+            }
+
+            .delivery-title {
+                font-size: 28px;
+            }
+
+            .delivery-description {
+                font-size: 16px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .whatsapp-title {
+                font-size: 24px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Delivery Hero -->
+        <section class="delivery-hero">
+            <div class="delivery-content">
+                <div class="delivery-icon">
+                    <i data-lucide="truck"></i>
+                </div>
+                <h2 class="delivery-title">Nós vamos até você!</h2>
+                <p class="delivery-description">Pegamos e entregamos seu celular onde você estiver. Conserto rápido, prático e sem você sair de casa.</p>
+                <div class="delivery-features">
+                    <div class="delivery-feature">
+                        <div class="delivery-feature-icon">
+                            <i data-lucide="map-pin"></i>
+                        </div>
+                        <span>Buscamos na sua localização</span>
+                    </div>
+                    <div class="delivery-feature">
+                        <div class="delivery-feature-icon">
+                            <i data-lucide="wrench"></i>
+                        </div>
+                        <span>Conserto profissional</span>
+                    </div>
+                    <div class="delivery-feature">
+                        <div class="delivery-feature-icon">
+                            <i data-lucide="package"></i>
+                        </div>
+                        <span>Devolvemos com garantia</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section class="services-section">
+            <h2 class="section-title">Nossos Serviços</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="monitor"></i>
+                    </div>
+                    <h3 class="service-title">Troca de Tela</h3>
+                    <p class="service-description">Substituição de display LCD e touch screen com peças originais e garantia</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="battery-charging"></i>
+                    </div>
+                    <h3 class="service-title">Troca de Bateria</h3>
+                    <p class="service-description">Baterias novas com maior durabilidade e melhor desempenho para seu aparelho</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="cpu"></i>
+                    </div>
+                    <h3 class="service-title">Reparo de Placa</h3>
+                    <p class="service-description">Conserto especializado em placas com problemas de hardware e componentes</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="camera"></i>
+                    </div>
+                    <h3 class="service-title">Câmera</h3>
+                    <p class="service-description">Reparo e substituição de câmeras frontal e traseira com qualidade original</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="droplet"></i>
+                    </div>
+                    <h3 class="service-title">Danos por Água</h3>
+                    <p class="service-description">Recuperação de aparelhos com danos causados por água e líquidos</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="settings"></i>
+                    </div>
+                    <h3 class="service-title">Manutenção Geral</h3>
+                    <p class="service-description">Limpeza, atualização de software e otimização do sistema operacional</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- WhatsApp CTA -->
+        <section class="whatsapp-section">
+            <h2 class="whatsapp-title">Precisa de um Orçamento?</h2>
+            <p class="whatsapp-subtitle">Fale conosco agora e receba atendimento especializado</p>
+            <a href="https://wa.me/5563992452793?text=Ol%C3%A1%21%20Preciso%20de%20assist%C3%AAncia%20t%C3%A9cnica%20para%20meu%20celular.%20Gostaria%20de%20um%20or%C3%A7amento." class="whatsapp-button" target="_blank">
+                <i data-lucide="message-circle"></i>
+                <span>Chamar no WhatsApp</span>
+            </a>
+        </section>
+
+        <!-- Info Footer -->
+        <section class="info-section">
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i data-lucide="clock"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Atendimento Rápido</h3>
+                        <p>Respondemos em minutos e agilizamos seu reparo</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i data-lucide="shield-check"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Garantia Assegurada</h3>
+                        <p>Todos os serviços com garantia de qualidade</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i data-lucide="wrench"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Técnicos Especializados</h3>
+                        <p>Profissionais qualificados e experientes</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i data-lucide="dollar-sign"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Orçamento Gratuito</h3>
+                        <p>Avaliação sem compromisso e valores justos</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
