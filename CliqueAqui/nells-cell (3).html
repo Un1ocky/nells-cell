@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nells Cell - Assistência Técnica Delivery</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #000000;
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Brand Header */
+        .brand-header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .brand-name {
+            color: #ffffff;
+            font-size: 48px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #ffffff 0%, #a3a3a3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .brand-tagline {
+            color: #888888;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Delivery Hero Section */
+        .delivery-hero {
+            margin-bottom: 60px;
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        .delivery-content {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 32px;
+            padding: 60px 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: slideInScale 0.8s ease backwards;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .delivery-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                #ffffff 20%, 
+                #ffffff 80%, 
+                transparent 100%);
+            animation: shimmer 3s linear infinite;
+        }
+
+        .delivery-content::after {
+            content: '';
+            position: absolute;
+            inset: -100%;
+            background: conic-gradient(
+                from 0deg at 50% 50%,
+                transparent 0deg,
+                rgba(255, 255, 255, 0.05) 90deg,
+                transparent 180deg,
+                rgba(255, 255, 255, 0.05) 270deg,
+                transparent 360deg
+            );
+            animation: rotate 15s linear infinite;
+        }
+
+        .delivery-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ffffff 0%, #e5e5e5 100%);
+            border: 3px solid #000000;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 28px;
+            box-shadow: 
+                0 15px 50px rgba(255, 255, 255, 0.3),
+                0 5px 15px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            animation: bounce 2s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        .delivery-icon::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: linear-gradient(135deg, #ffffff, #888888);
+            border-radius: 26px;
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(8px);
+        }
+
+        .delivery-icon i {
+            width: 48px;
+            height: 48px;
+            stroke: #000000;
+            animation: iconPulse 2s ease-in-out infinite;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .delivery-title {
+            color: #ffffff;
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.6s ease 0.3s backwards;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
+        }
+
+        .delivery-description {
+            color: #b3b3b3;
+            font-size: 19px;
+            line-height: 1.7;
+            max-width: 750px;
+            margin: 0 auto 48px;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.6s ease 0.4s backwards;
+            font-weight: 400;
+        }
+
+        .delivery-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .delivery-feature {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideInUp 0.6s ease backwards;
+            text-align: center;
+        }
+
+        .delivery-feature:nth-child(1) { animation-delay: 0.5s; }
+        .delivery-feature:nth-child(2) { animation-delay: 0.6s; }
+        .delivery-feature:nth-child(3) { animation-delay: 0.7s; }
+
+        .delivery-feature:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .delivery-feature-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #ffffff 0%, #e5e5e5 100%);
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+        }
+
+        .delivery-feature:hover .delivery-feature-icon {
+            transform: rotate(-5deg) scale(1.1);
+            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.3);
+        }
+
+        .delivery-feature-icon svg {
+            width: 26px;
+            height: 26px;
+            stroke: #000000;
+            stroke-width: 2.5;
+            fill: none;
+        }
+
+        /* Services Section */
+        .services-section {
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .services-section::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .section-title {
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 50px;
+            letter-spacing: -0.5px;
+            animation: fadeInDown 0.6s ease;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::before {
+            content: '⚡';
+            position: absolute;
+            left: 50%;
+            top: -35px;
+            transform: translateX(-50%);
+            font-size: 24px;
+            opacity: 0.8;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 28px;
+            perspective: 1000px;
+        }
+
+        .service-card {
+            background: linear-gradient(145deg, #0f0f0f 0%, #050505 100%);
+            border-radius: 24px;
+            border: 1.5px solid rgba(255, 255, 255, 0.12);
+            padding: 36px 28px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease backwards;
+            transform-style: preserve-3d;
+        }
+
+        .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .service-card:nth-child(2) { animation-delay: 0.15s; }
+        .service-card:nth-child(3) { animation-delay: 0.2s; }
+        .service-card:nth-child(4) { animation-delay: 0.25s; }
+        .service-card:nth-child(5) { animation-delay: 0.3s; }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.4) 50%, 
+                transparent 100%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(255, 255, 255, 0.06),
+                transparent 40%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .service-card:hover::after {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-16px) rotateX(2deg) scale(1.03);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 
+                0 30px 80px rgba(255, 255, 255, 0.15),
+                0 10px 30px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            background: linear-gradient(145deg, #151515 0%, #0a0a0a 100%);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #ffffff 0%, #d4d4d4 100%);
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            box-shadow: 
+                0 8px 25px rgba(255, 255, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .service-icon::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(136, 136, 136, 0.4));
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            filter: blur(10px);
+        }
+
+        .service-card:hover .service-icon {
+            transform: rotateY(360deg) scale(1.15);
+            box-shadow: 
+                0 15px 40px rgba(255, 255, 255, 0.35),
+                inset 0 2px 4px rgba(255, 255, 255, 0.4);
+        }
+
+        .service-card:hover .service-icon::before {
+            opacity: 1;
+        }
+
+        .service-icon i {
+            width: 34px;
+            height: 34px;
+            stroke: #000000;
+            stroke-width: 2;
+            fill: none;
+            transition: all 0.5s ease;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .service-card:hover .service-icon i {
+            transform: scale(1.1);
+            stroke-width: 2.5;
+        }
+
+        .service-title {
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.3px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .service-card:hover .service-title {
+            color: #ffffff;
+            transform: translateX(4px);
+        }
+
+        .service-description {
+            color: #8a8a8a;
+            font-size: 15px;
+            line-height: 1.65;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-description {
+            color: #a8a8a8;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: translateX(-50%) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateX(-50%) scale(1.3);
+                opacity: 0.3;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0px);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        /* WhatsApp Section */
+        .whatsapp-section {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInUp 0.6s ease 0.3s backwards;
+        }
+
+        .whatsapp-title {
+            color: #ffffff;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .whatsapp-subtitle {
+            color: #737373;
+            font-size: 16px;
+            margin-bottom: 32px;
+            animation: fadeInUp 0.6s ease 0.2s backwards;
+        }
+
+        .whatsapp-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #25D366;
+            color: #000000;
+            border: none;
+            border-radius: 16px;
+            padding: 20px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 40px rgba(37, 211, 102, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .whatsapp-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .whatsapp-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .whatsapp-button:hover {
+            background: #20ba56;
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(37, 211, 102, 0.6);
+        }
+
+        .whatsapp-button svg {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .whatsapp-button:hover svg {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .whatsapp-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Info Section */
+        .info-section {
+            background: linear-gradient(180deg, #0a0a0a 0%, #050505 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            animation: fadeInUp 0.6s ease 0.4s backwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffffff, transparent);
+            animation: slideRight 3s ease-in-out infinite;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.5s ease backwards;
+        }
+
+        .info-item:nth-child(1) { animation-delay: 0.5s; }
+        .info-item:nth-child(2) { animation-delay: 0.6s; }
+        .info-item:nth-child(3) { animation-delay: 0.7s; }
+        .info-item:nth-child(4) { animation-delay: 0.8s; }
+
+        .info-item:hover {
+            transform: translateX(8px);
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.4s ease;
+        }
+
+        .info-item:hover .info-icon {
+            transform: rotate(-10deg) scale(1.1);
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .info-icon i {
+            width: 20px;
+            height: 20px;
+            stroke: #000000;
+        }
+
+        .info-content h3 {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .info-content p {
+            color: #a3a3a3;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes iconPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes expandWidth {
+            from {
+                width: 0;
+            }
+            to {
+                width: 60px;
+            }
+        }
+
+        @keyframes slideRight {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px 12px;
+            }
+
+            .brand-header {
+                margin-bottom: 30px;
+            }
+
+            .brand-name {
+                font-size: 36px;
+                letter-spacing: 1px;
+            }
+
+            .brand-tagline {
+                font-size: 13px;
+            }
+
+            .delivery-content {
+                padding: 40px 24px;
+                border-radius: 24px;
+                border-width: 1.5px;
+            }
+
+            .delivery-icon {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 24px;
+                border-radius: 20px;
+            }
+
+            .delivery-icon i {
+                width: 40px;
+                height: 40px;
+            }
+
+            .delivery-title {
+                font-size: 30px;
+                margin-bottom: 16px;
+                letter-spacing: -0.5px;
+            }
+
+            .delivery-description {
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 36px;
+            }
+
+            .delivery-features {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .delivery-feature {
+                padding: 20px 16px;
+                font-size: 15px;
+                border-radius: 14px;
+            }
+
+            .delivery-feature-icon {
+                width: 48px;
+                height: 48px;
+                border-radius: 12px;
+            }
+
+            .delivery-feature-icon svg {
+                width: 22px;
+                height: 22px;
+            }
+
+            .section-title {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .service-card {
+                padding: 24px 20px;
+                border-radius: 16px;
+            }
+
+            .service-icon {
+                width: 50px;
+                height: 50px;
+                margin-bottom: 14px;
+            }
+
+            .service-icon i {
+                width: 24px;
+                height: 24px;
+            }
+
+            .service-title {
+                font-size: 19px;
+                margin-bottom: 10px;
+            }
+
+            .service-description {
+                font-size: 14px;
+                line-height: 1.5;
+            }
+
+            .whatsapp-section {
+                padding: 30px 20px;
+                border-radius: 20px;
+            }
+
+            .whatsapp-title {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+
+            .whatsapp-subtitle {
+                font-size: 15px;
+                margin-bottom: 24px;
+            }
+
+            .whatsapp-button {
+                padding: 16px 28px;
+                font-size: 16px;
+                border-radius: 14px;
+                min-height: 54px;
+            }
+
+            .whatsapp-button svg {
+                width: 22px;
+                height: 22px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .info-item {
+                padding: 20px 18px;
+                border-radius: 14px;
+            }
+
+            .info-icon {
+                width: 42px;
+                height: 42px;
+            }
+
+            .info-icon i {
+                width: 20px;
+                height: 20px;
+            }
+
+            .info-content h3 {
+                font-size: 16px;
+                margin-bottom: 6px;
+            }
+
+            .info-content p {
+                font-size: 13px;
+                line-height: 1.4;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 375px) {
+            .brand-name {
+                font-size: 32px;
+            }
+
+            .brand-tagline {
+                font-size: 12px;
+            }
+
+            .delivery-content {
+                padding: 32px 20px;
+            }
+
+            .delivery-icon {
+                width: 70px;
+                height: 70px;
+            }
+
+            .delivery-icon i {
+                width: 36px;
+                height: 36px;
+            }
+
+            .delivery-title {
+                font-size: 26px;
+            }
+
+            .delivery-description {
+                font-size: 15px;
+            }
+
+            .delivery-feature {
+                padding: 18px 14px;
+                font-size: 14px;
+            }
+
+            .delivery-feature-icon {
+                width: 44px;
+                height: 44px;
+            }
+
+            .service-title {
+                font-size: 18px;
+            }
+
+            .whatsapp-title {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Brand Header -->
+        <div class="brand-header">
+            <h1 class="brand-name">NELLS DELIVERY</h1>
+            <p class="brand-tagline">Assistência Técnica Especializada</p>
+        </div>
+
+        <!-- Delivery Hero -->
+        <section class="delivery-hero">
+            <div class="delivery-content">
+                <div class="delivery-icon">
+                    <i data-lucide="truck"></i>
+                </div>
+                <h2 class="delivery-title">Nós vamos até você!</h2>
+                <p class="delivery-description">Pegamos e entregamos seu celular onde você estiver. Conserto rápido, prático e sem você sair de casa.</p>
+                <div class="delivery-features">
+                    <div class="delivery-feature">
+                        <div class="delivery-feature-icon">
+                            <i data-lucide="map-pin"></i>
+                        </div>
+                        <span>Buscamos na sua localização</span>
+                    </div>
+                    <div class="delivery-feature">
+                        <div class="delivery-feature-icon">
+                            <i data-lucide="wrench"></i>
+                        </div>
+                        <span>Conserto profissional</span>
+                    </div>
+                    <div class="delivery-feature">
+                        <div class="delivery-feature-icon">
+                            <i data-lucide="package"></i>
+                        </div>
+                        <span>Devolvemos com garantia</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section class="services-section">
+            <h2 class="section-title">Nossos Serviços</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="monitor"></i>
+                    </div>
+                    <h3 class="service-title">Troca de Tela</h3>
+                    <p class="service-description">Substituição de display LCD e touch screen com peças originais e garantia</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="battery-charging"></i>
+                    </div>
+                    <h3 class="service-title">Troca de Bateria</h3>
+                    <p class="service-description">Baterias novas com maior durabilidade e melhor desempenho para seu aparelho</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="camera"></i>
+                    </div>
+                    <h3 class="service-title">Câmera</h3>
+                    <p class="service-description">Reparo e substituição de câmeras frontal e traseira com qualidade original</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="droplet"></i>
+                    </div>
+                    <h3 class="service-title">Danos por Água</h3>
+                    <p class="service-description">Recuperação de aparelhos com danos causados por água e líquidos</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="settings"></i>
+                    </div>
+                    <h3 class="service-title">Manutenção Geral</h3>
+                    <p class="service-description">Limpeza, atualização de software e otimização do sistema operacional</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- WhatsApp CTA -->
+        <section class="whatsapp-section">
+            <h2 class="whatsapp-title">Precisa de um Orçamento?</h2>
+            <p class="whatsapp-subtitle">Fale conosco agora e receba atendimento especializado</p>
+            <a href="https://wa.me/5563992452793?text=Ol%C3%A1%21%20Preciso%20de%20assist%C3%AAncia%20t%C3%A9cnica%20para%20meu%20celular.%20Gostaria%20de%20um%20or%C3%A7amento." class="whatsapp-button" target="_blank">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
+                <span>Chamar no WhatsApp</span>
+            </a>
+        </section>
+
+        <!-- Info Footer -->
+        <section class="info-section">
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i data-lucide="clock"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Atendimento Rápido</h3>
+                        <p>Respondemos em minutos e agilizamos seu reparo</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i data-lucide="shield-check"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Garantia Assegurada</h3>
+                        <p>Todos os serviços com garantia de qualidade</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i data-lucide="wrench"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Técnicos Especializados</h3>
+                        <p>Profissionais qualificados e experientes</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i data-lucide="dollar-sign"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Orçamento Gratuito</h3>
+                        <p>Avaliação sem compromisso e valores justos</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        
+        // Efeito de mouse nos cards de serviço
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body>
+</html>
